@@ -40,7 +40,15 @@ export class CocktailService {
 
   public getRandomCocktail() {
     return this.http.get<CocktailResponse>(`${this.API_URL}/random.php`).pipe(
-      map(response => response.drinks?.[0] || null),
+      map(response => {
+        const cocktail = response.drinks?.[0] as Cocktail;
+        if (!cocktail) return null;
+        
+        return {
+          ...cocktail,
+          ingredients: this.extractIngredients(cocktail)
+        };
+      }),
       catchError(() => of(null)),
       shareReplay({ bufferSize: 1, refCount: true })
     );
