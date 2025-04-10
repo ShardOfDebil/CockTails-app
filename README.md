@@ -17,6 +17,12 @@
    ionic build
    npx cap sync android
    ```
+Если нужен только веб, то после первого пункта 
+
+  ```
+  npm run start
+  ```
+И перейти по http://localhost:4200/
 
 2. **Открытие проекта в Android Studio**
    - Откройте Android Studio
