@@ -1,0 +1,7 @@
+{
+  "name": "CockTails-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}

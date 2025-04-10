@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">CockTails</string>
+    <string name="title_activity_main">CockTails</string>
+    <string name="package_name">com.exmaple.cocktailapp</string>
+    <string name="custom_url_scheme">com.exmaple.cocktailapp</string>
+</resources>
