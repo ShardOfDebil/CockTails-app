@@ -14,7 +14,25 @@ export class CocktailService {
 
   public searchCocktails(query: string) {
     return this.http.get<CocktailResponse>(`${this.API_URL}/search.php?s=${query}`).pipe(
-      map(response => response.drinks || []),
+      map(response => {
+        const drinks = response.drinks || [];
+        const searchTerm = query.toLowerCase();
+        
+        return drinks.sort((a, b) => {
+          const aName = a.strDrink.toLowerCase();
+          const bName = b.strDrink.toLowerCase();
+          
+          const aNum = /^\d/.test(a.strDrink) ? 1 : 0;
+          const bNum = /^\d/.test(b.strDrink) ? 1 : 0;
+          if (aNum !== bNum) return aNum - bNum;
+          
+          const aStartsWith = aName.startsWith(searchTerm) ? 0 : 1;
+          const bStartsWith = bName.startsWith(searchTerm) ? 0 : 1;
+          if (aStartsWith !== bStartsWith) return aStartsWith - bStartsWith;
+          
+          return a.strDrink.localeCompare(b.strDrink);
+        });
+      }),
       catchError(() => of([])),
       shareReplay({ bufferSize: 1, refCount: true })
     );
