@@ -14,8 +14,7 @@
 1. **Подготовка проекта**
    ```bash
    npm install
-   ionic build
-   npx cap sync android
+   npm run sync:android
    ```
 Если нужен только веб, то после первого пункта 
 
