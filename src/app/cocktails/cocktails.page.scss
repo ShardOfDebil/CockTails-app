@@ -1,6 +1,9 @@
-ion-header {
+:host {
     --ion-safe-area-top: env(safe-area-inset-top);
-    padding-top: var(--ion-safe-area-inset-top);
+}
+
+ion-header {
+    position: relative;
 }
 
 ion-content {
@@ -9,8 +12,7 @@ ion-content {
 }
 
 ion-toolbar {
-    --padding-top: env(safe-area-inset-top);
-    --min-height: calc(56px + env(safe-area-inset-top));
+    --min-height: 56px;
 }
 
 ion-buttons {
