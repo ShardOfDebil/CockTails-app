@@ -8,6 +8,7 @@
     "start": "ng serve",
     "build": "ng build",
     "sync:android": "ionic build && npx cap sync android",
+    "build:debug:android": "ionic build && npx cap sync android && cd android && .\\gradlew.bat assembleDebug",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint"

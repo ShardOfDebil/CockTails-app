@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonButtons, IonIcon, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonImg, ModalController } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonButtons, IonIcon, IonCard, IonCardContent, IonImg, ModalController } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { close, shuffle } from 'ionicons/icons';
 import { CocktailService } from '../../services/cocktail.service';
@@ -17,8 +17,7 @@ import { signal } from '@angular/core';
   standalone: true,
   imports: [
     IonContent, IonHeader, IonTitle, IonToolbar, IonButton, 
-    IonButtons, IonIcon, IonCard, IonCardHeader, IonCardTitle, 
-    IonCardContent, IonImg, CommonModule, FormsModule
+    IonButtons, IonIcon, IonCard, IonCardContent, IonImg, CommonModule, FormsModule
   ]
 })
 export class RandomCocktailPage implements OnInit {

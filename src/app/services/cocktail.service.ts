@@ -46,9 +46,23 @@ export class CocktailService {
     );
   }
 
+  private extractIngredients(cocktail: Record<string, any>): string[] {
+    return Object.keys(cocktail)
+      .filter(key => key.startsWith('strIngredient') && cocktail[key])
+      .map(key => cocktail[key].trim());
+  }
+
   public getCocktailById(id: string) {
     return this.http.get<CocktailResponse>(`${this.API_URL}/lookup.php?i=${id}`).pipe(
-      map(response => response.drinks?.[0] || null),
+      map(response => {
+        const cocktail = response.drinks?.[0] as Cocktail;
+        if (!cocktail) return null;
+        
+        return {
+          ...cocktail,
+          ingredients: this.extractIngredients(cocktail)
+        };
+      }),
       catchError(() => of(null)),
       shareReplay({ bufferSize: 1, refCount: true })
     );
