@@ -1,11 +1,14 @@
 import { Component, inject, DestroyRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonButtons, IonIcon, IonSearchbar, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonImg } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonButtons, IonIcon, IonSearchbar, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonImg, ModalController } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { shuffle } from 'ionicons/icons';
+import { search, shuffle } from 'ionicons/icons';
 import { CocktailService } from '../services/cocktail.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Router } from '@angular/router';
+import { Cocktail } from '../models/cocktail.model';
+import { RandomCocktailPage } from '../modals/random-cocktail/random-cocktail.page';
 
 @Component({
   selector: 'app-cocktails',
@@ -21,35 +24,49 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 export class CocktailsPage {
   private readonly cocktailService = inject(CocktailService);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly router = inject(Router);
+  private readonly modalCtrl = inject(ModalController);
   public readonly cocktails = this.cocktailService.cocktails;
 
   constructor() {
-    addIcons({ shuffle });
+    addIcons({ search, shuffle });
     this.loadCocktails();
   }
 
-  private loadCocktails(): void {
-    this.cocktailService.getCocktailsByFirstLetter('a')
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(cocktails => this.cocktails.set(cocktails));
+  public loadCocktails(): void {
+    this.cocktails.set([]);
   }
 
-  public onSearch(event: any): void {
+  public onSearchInput(event: any): void {
     const query = event.target.value;
-    if (query.length > 2) {
-      this.cocktailService.searchCocktails(query)
-        .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe(cocktails => this.cocktails.set(cocktails));
+    if (!query || query.trim() === '') {
+      if (event.detail.inputType !== 'deleteContentBackward' && event.detail.inputType !== 'deleteContentForward') {
+        this.loadCocktails();
+      }
     }
   }
 
-  public onRandomCocktail(): void {
-    this.cocktailService.getRandomCocktail()
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(cocktail => {
-        if (cocktail) {
-          this.cocktails.set([cocktail]);
-        }
-      });
+  public onSearch(query: string): void {
+    if (query && query.length > 0) {
+      this.cocktailService.searchCocktails(query)
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe(cocktails => this.cocktails.set(cocktails));
+    } else {
+      this.loadCocktails();
+    }
+  }
+
+  public async onRandomCocktail(): Promise<void> {
+    const modal = await this.modalCtrl.create({
+      component: RandomCocktailPage,
+      breakpoints: [0, 0.95],
+      initialBreakpoint: 0.95,
+      cssClass: 'random-cocktail-modal'
+    });
+    await modal.present();
+  }
+
+  public onCocktailClick(cocktail: Cocktail): void {
+    this.router.navigate(['/cocktail-details', cocktail.idDrink]);
   }
 }

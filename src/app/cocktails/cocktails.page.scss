@@ -1,6 +1,6 @@
 ion-header {
     --ion-safe-area-top: env(safe-area-inset-top);
-    padding-top: var(--ion-safe-area-top);
+    padding-top: var(--ion-safe-area-inset-top);
 }
 
 ion-content {
@@ -68,4 +68,28 @@ ion-card-title {
 ion-card-content {
     padding: 16px;
     color: var(--ion-color-medium);
+}
+
+.empty-state {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 32px;
+    text-align: center;
+    
+    p {
+        font-size: 1.2rem;
+        color: var(--ion-color-medium);
+        margin: 0;
+    }
+}
+
+.random-cocktail-modal {
+    --height: 95%;
+    --width: 100%;
+    
+    &::part(content) {
+        border-radius: 16px 16px 0 0;
+    }
 }

@@ -1,13 +1,45 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>random-cocktail</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="onClose()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Random Cocktail</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="onNewRandom()">
+        <ion-icon slot="icon-only" name="shuffle"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">random-cocktail</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  @if (cocktail()) {
+    <div class="random-cocktail">
+      <ion-card>
+        <div class="cocktail-image">
+          <ion-img [src]="cocktail()?.strDrinkThumb" [alt]="cocktail()?.strDrink"></ion-img>
+          <div class="cocktail-info">
+            <h2>{{ cocktail()?.strDrink }}</h2>
+            <p>{{ cocktail()?.strGlass }}</p>
+          </div>
+        </div>
+        <ion-card-content>
+          <div class="ingredients">
+            <h3>Ingredients:</h3>
+            <ul>
+              @for (ingredient of cocktail()?.ingredients; track ingredient) {
+                <li>{{ ingredient }}</li>
+              }
+            </ul>
+          </div>
+          <div class="instructions">
+            <h3>Instructions:</h3>
+            <p>{{ cocktail()?.strInstructions }}</p>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  }
 </ion-content>

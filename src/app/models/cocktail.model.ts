@@ -3,6 +3,8 @@ export interface Cocktail {
   strDrink: string;
   strGlass: string;
   strDrinkThumb: string;
+  strInstructions: string;
+  ingredients: string[];
 }
 
 export interface CocktailResponse {
