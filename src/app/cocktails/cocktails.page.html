@@ -3,12 +3,13 @@
     <ion-title>CockTails</ion-title>
   </ion-toolbar>
   <ion-toolbar>
-    <ion-searchbar placeholder="Search cocktails..."></ion-searchbar>
+    <ion-searchbar 
+      placeholder="Search cocktails..." 
+      (ionInput)="onSearch($event)"
+      debounce="500">
+    </ion-searchbar>
     <ion-buttons slot="end">
-      <ion-button>
-        <ion-icon slot="icon-only" name="search"></ion-icon>
-      </ion-button>
-      <ion-button>
+      <ion-button (click)="onRandomCocktail()">
         <ion-icon slot="icon-only" name="shuffle"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -16,10 +17,18 @@
 </ion-header>
 
 <ion-content>
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">CockTails</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="cocktails-grid">
+    @for (cocktail of cocktails(); track cocktail.idDrink) {
+      <ion-card>
+        <ion-img [src]="cocktail.strDrinkThumb" [alt]="cocktail.strDrink"></ion-img>
+        <ion-card-header>
+          <ion-card-title>{{ cocktail.strDrink }}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <p>Glass: {{ cocktail.strGlass }}</p>
+        </ion-card-content>
+      </ion-card>
+    }
+  </div>
 </ion-content>
 

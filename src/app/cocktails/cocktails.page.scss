@@ -32,10 +32,22 @@ ion-searchbar {
     padding: 0 8px;
 }
 
+.cocktails-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+    padding: 16px;
+}
+
 ion-card {
-    margin-bottom: 16px;
+    margin: 0;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+
+    &:hover {
+        transform: translateY(-2px);
+    }
 }
 
 ion-img {
