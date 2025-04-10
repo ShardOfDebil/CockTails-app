@@ -46,8 +46,12 @@ ion-header {
     top: var(--ion-safe-area-top);
     left: 0;
     right: 0;
-    margin-top: 6vh !important;
+    
     z-index: 1000;
+
+    @media (max-width: 450px) {
+        margin-top: 6vh !important;
+    }
 }
 
 ion-content {
