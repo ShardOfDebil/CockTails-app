@@ -1,14 +1,13 @@
 :host {
   --ion-safe-area-top: env(safe-area-inset-top);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 ion-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1;
-
+  position: relative;
+  
   &::after {
     display: none;
   }
@@ -22,8 +21,10 @@ ion-toolbar {
 }
 
 ion-content {
-  --padding-top: calc(56px + env(safe-area-inset-top));
+  --padding-top: 0;
   --padding-bottom: 32px;
+  flex: 1;
+  overflow-y: auto;
 }
 
 .random-cocktail {

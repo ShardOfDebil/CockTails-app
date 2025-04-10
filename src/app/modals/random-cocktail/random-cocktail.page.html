@@ -14,7 +14,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [scrollY]="true">
   @if (cocktail()) {
     <div class="random-cocktail">
       <ion-card>
@@ -29,7 +29,7 @@
           <div class="ingredients">
             <h3>Ingredients:</h3>
             <ul>
-              @for (ingredient of cocktail()?.ingredients; track ingredient) {
+              @for (ingredient of cocktail()?.ingredients; track $index) {
                 <li>{{ ingredient }}</li>
               }
             </ul>

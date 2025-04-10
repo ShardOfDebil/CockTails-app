@@ -59,9 +59,12 @@ export class CocktailsPage {
   public async onRandomCocktail(): Promise<void> {
     const modal = await this.modalCtrl.create({
       component: RandomCocktailPage,
-      breakpoints: [0, 0.95],
-      initialBreakpoint: 0.95,
-      cssClass: 'random-cocktail-modal'
+      breakpoints: [0, 1],
+      initialBreakpoint: 1,
+      cssClass: 'random-cocktail-modal',
+      backdropBreakpoint: 0,
+      canDismiss: true,
+      showBackdrop: true
     });
     await modal.present();
   }
